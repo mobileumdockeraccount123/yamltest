@@ -3,23 +3,46 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: ashuapp1
-  name: ashuapp1
+    app: peterapp1
+  name: peterapp1
+  namespace: peter-project
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ashuapp1
+      app: peterapp1
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: ashuapp1
+        app: peterapp1
     spec:
       containers:
-      - image: dockerashu/ashumobi:appv1
-        name: ashumobi
+      - image: mobileumdockeraccount123/peterapp2:v1
+        name: petermobi
         ports:
         - containerPort: 80
         resources: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: petersvc1
+  name: petersvc1
+  namespace: peter-project
+spec:
+  ports:
+  - name: 1633-80
+    port: 1633
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: peterapp1
+  type: NodePort
+status:
+  loadBalancer: {}
